@@ -1,0 +1,31 @@
+	public void getyzm() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String json = "";
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("image/jpeg");  // 禁止图像缓存
+        response.setHeader("Pragma", "no-cache");  
+        response.setHeader("Cache-Control", "no-cache");  
+        response.setDateHeader("Expires", 0);
+        CreateVer instance = new CreateVer();  
+         Integer sum = instance.getSum();
+        request.getSession().setAttribute("sum", sum);
+        instance.write(response.getOutputStream());
+	}
+	public void checkyzm() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String json = "";
+		HttpServletResponse response = ServletActionContext.getResponse();
+		
+		Integer sum = (Integer) request.getSession().getAttribute("sum");
+		String checkyzm = request.getParameter("yzm").replace(" ", "");
+		if(sum == Integer.parseInt(checkyzm)){
+			json = "true";
+		}else{
+			json = "false";
+		}
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(json);
+		out.flush();
+		out.close();
+	}
