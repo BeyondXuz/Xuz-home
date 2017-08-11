@@ -1,0 +1,31 @@
+<img alt="" src="/do/getyzm" id="checkImg" onclick="reImg();">
+<input type="text"  class="-inp -inp-x -size-l -p-l5" id="getyzm" placeholder="请输入计算结果验证" oninput="aa(event)" onporpertychange="aa(event)" onchange="aa(event);"/>
+<button type="button" class="-btn -size-l -btn-blue" onclick="checkyzm();" ><a>确定</a></button>
+<span style="color:red" id="imgresult"></span>
+
+
+    function reImg(){
+    	var checkImg = document.getElementById("checkImg");
+    	checkImg.setAttribute('src', '/do/getyzm?r='+Math.random());
+    	$("#getyzm").val("");
+    }
+	function aa(e){
+// 		var yzm = $("#getyzm").val();
+// 			checkyzm();
+	}
+    function checkyzm(){
+    	var yzm = $("#getyzm").val();
+    	var murlyzm = "/do/checkyzm?yzm="+yzm;
+    	aj = new ajaxjson("GET", murlyzm, cbyzm, "", true);
+    	function cbyzm(obj){
+    		console.log(obj);
+    		if(obj==true){
+        		$("#imgresult").text("验证成功！");
+    		}else{
+        		$("#imgresult").text("验证错误！");
+    		}
+    	}
+    }
+                              
+                              
+                              
